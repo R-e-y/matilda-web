@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Input;
 
 class WorkerController extends Controller
 {
@@ -24,15 +25,15 @@ class WorkerController extends Controller
     }
 
 
-public function finditem(Worker $worker , $item)
-    {
- $workers = $worker->where('idParalax', '$item')
-        ->leftJoin('offices', 'workers.idOffice', '=', 'offices.idOffice')
-        ->leftJoin('posts', 'workers.idPost', '=', 'posts.idPost')
-        ->get();
+// public function findWorker(Worker $worker , $item)
+//     {
+//  $workers = $worker->where('idParalax', '$item')
+//         ->leftJoin('offices', 'workers.idOffice', '=', 'offices.idOffice')
+//         ->leftJoin('posts', 'workers.idPost', '=', 'posts.idPost')
+//         ->get();
 
-        return view('workers.list', ['workers' => $workers]);
-}
+//         return view('workers.list', ['workers' => $workers]);
+// }
     /**
      * Display a listing of the resource.
      *
@@ -46,6 +47,38 @@ public function finditem(Worker $worker , $item)
         ->get();
 
         return view('workers.list', ['workers' => $workers]);
+    }
+
+
+ public function indexForAccountant()
+    {
+        $workers = Worker::select('*')
+        ->leftJoin('offices', 'workers.idOffice', '=', 'offices.idOffice')
+        ->leftJoin('posts', 'workers.idPost', '=', 'posts.idPost')
+        ->get();
+
+        return view('workers.listForAccountant', ['workers' => $workers]);
+    }
+
+
+  public function search(){
+    $q = Input::get ( 'q' );
+    $workers = Worker::where('name','LIKE',$q.'%')->orWhere('idParalax','=',$q)
+        ->leftJoin('offices', 'workers.idOffice', '=', 'offices.idOffice')
+        ->leftJoin('posts', 'workers.idPost', '=', 'posts.idPost')
+        ->get();
+
+        return view('workers.list', ['workers' => $workers]);
+    }
+
+    public function searchForAccountant(){
+    $q = Input::get ( 'q' );
+    $workers = Worker::where('name','LIKE',$q.'%')->orWhere('idParalax','=',$q)
+        ->leftJoin('offices', 'workers.idOffice', '=', 'offices.idOffice')
+        ->leftJoin('posts', 'workers.idPost', '=', 'posts.idPost')
+        ->get();
+
+        return view('workers.listForAccountant', ['workers' => $workers]);
     }
 
     /**
@@ -63,6 +96,15 @@ public function finditem(Worker $worker , $item)
 
     }
 
+ public function createForAccountant()
+    {
+        $offices = Office::select('*')->get();
+        $posts = Post::select('*')->get();
+
+        return view('workers.addForAccountant',['posts' => $posts],['offices' => $offices]);
+
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -75,7 +117,7 @@ public function finditem(Worker $worker , $item)
         $validation=$request->validate([
             'idParalax'=> 'required|min:5|max:6',
             'name' => 'required|min:3|max:255',
-            'fixedSalary' => 'required|min:3|max:6',
+            'fixedSalary' => '|min:3|max:6',
             'idPost' => 'required',
             'idOffice' => 'required'
 
@@ -93,6 +135,26 @@ public function finditem(Worker $worker , $item)
     }
 
 
+    public function storeForAccountant(Request $request)
+    {
+
+        $validation=$request->validate([
+            'idParalax'=> 'required|min:5|max:6',
+            'name' => 'required|min:3|max:255',
+            'idPost' => 'required',
+            'idOffice' => 'required'
+
+        ]);
+
+        $worker = new Worker;
+        $worker->idParalax = $request['idParalax'];
+        $worker->name = $request['name'];
+        $worker->idPost = $request['idPost'];
+        $worker->idOffice = $request['idOffice'];
+        $worker->save();
+
+        return redirect('/workersForAccountant');
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -107,6 +169,16 @@ public function finditem(Worker $worker , $item)
 
 
         return view('workers.edit', ['worker' => $worker,'posts' => $posts],['offices' => $offices]);
+    }
+
+
+    public function editForAccountant(Worker $worker)
+    {
+       $offices = Office::select('*')->get();
+        $posts = Post::select('*')->get();
+
+
+        return view('workers.editForAccountant', ['worker' => $worker,'posts' => $posts],['offices' => $offices]);
     }
 
 
@@ -127,6 +199,15 @@ public function update(Request $request, Worker $worker )
 
     }
 
+    public function updateForAccoutant(Request $request, Worker $worker )
+    {
+       // var_dump($worker);
+       // var_dump($request->all());
+       // die();
+        Worker::where('id', $worker->id)->update($request->except(['_token', '_method']));
+      return redirect('/workersForAccountant');
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -134,6 +215,7 @@ public function update(Request $request, Worker $worker )
      * @param  \App\Worker  $worker
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Worker $worker)
     {
         $worker->delete();
@@ -142,11 +224,20 @@ public function update(Request $request, Worker $worker )
     }
 
 
+ public function destroyForAccountant(Worker $worker)
+    {
+        $worker->delete();
+
+        return redirect('/workersForAccountant');
+    }
+
+
     public function admin(Request $req){
     return redirect('/workers');
     }
 
-        public function accountant(Request $req){
-    return view('middleware')->withMessage("Accountant");
+    public function accountant(Request $req){
+            return redirect('/workersForAccountant');
+    // return view('middleware')->withMessage("Accountant");
     }
 }
