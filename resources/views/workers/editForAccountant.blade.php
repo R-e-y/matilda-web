@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ url('workers/update/'.$worker->id) }}" method="POST" class="form-horizontal">
+                    <form action="{{ url('workers/updateForAccoutant/'.$worker->id) }}" method="POST" class="form-horizontal">
                       {{ csrf_field() }}
                       {{ method_field('PATCH') }}
 
