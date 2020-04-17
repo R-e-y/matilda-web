@@ -17,11 +17,30 @@
                     @if (count($workers) > 0)
                     <div class="panel-body">
 
+
                 <!-- Поле поиска -->
+          <!--   <form action="/search" method="POST" role="search">
+                  {{ csrf_field() }}
                 <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="поиск">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="поиск">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit"></button>
                 </form>
+             </form> -->
+
+
+                <!-- Поле поиска -->
+                <form action="/search" method="POST" role="search">
+                  {{ csrf_field() }}
+                  <div class="input-group">
+                      <input type="text" class="form-control mr-sm-2" name="q"
+                          placeholder="Поиск сотрудника">
+                        <span class="input-group-btn">
+                        <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Найти</button>
+                        </span>
+                  </div>
+                </form>
+
+
 
                       <table class="table table-striped task-table">
 
@@ -78,6 +97,8 @@
                     @else
                         No Records
                     @endif
+                    <br>
+                    <br>
 
                     <button class="btn btn-primary" type="button" onclick="window.location='{{ url("workers/add") }}'">
                       <i class="fa fa-plus fa-fw"></i> Добавить нового сотрудника
