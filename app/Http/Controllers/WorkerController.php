@@ -240,4 +240,23 @@ public function update(Request $request, Worker $worker )
             return redirect('/workersForAccountant');
     // return view('middleware')->withMessage("Accountant");
     }
+
+    public function read(){
+
+	if (($handle = fopen ( public_path () . '/MOCK_DATA.csv', 'r' )) !== FALSE) {
+		while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
+			$csv_data = new Visit ();
+			$csv_data->idParalax = $data [0];
+			$csv_data->lastname = $data [1];
+			$csv_data->email = $data [2];
+			$csv_data->gender = $data [3];
+			$csv_data->save ();
+		}
+		fclose ( $handle );
+	}
+
+	$finalData = $csv_data::all ();
+
+	return view ( 'welcome' )->withData ( $finalData );
+} );
 }
