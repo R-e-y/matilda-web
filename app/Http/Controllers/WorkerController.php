@@ -247,9 +247,8 @@ public function update(Request $request, Worker $worker )
 		while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
 			$csv_data = new Visit ();
 			$csv_data->idParalax = $data [0];
-			$csv_data->lastname = $data [1];
-			$csv_data->email = $data [2];
-			$csv_data->gender = $data [3];
+			$csv_data->entry = $data [1];
+			$csv_data->exit = $data [2];
 			$csv_data->save ();
 		}
 		fclose ( $handle );
