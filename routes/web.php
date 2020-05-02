@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::get('/actions', 'ActionController@index');
 Route::post('/actions/read', function () {
 
-  if (($handle = fopen ( public_path () . '/audittrail.csv', 'w' )) !== FALSE) {
+  if (($handle = fopen ( public_path () . '/audittrail.csv', 'r' )) !== FALSE) {
   while ( ($data = fgetcsv ( $handle, 15, ',' )) !== FALSE ) {
     $action= new Action ();
     $action->date = $data [1];
