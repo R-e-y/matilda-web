@@ -92,6 +92,7 @@ Route::match(['get', 'post'], '/workers/editForAccountant/{worker}', 'WorkerCont
 Route::match(['get', 'post', 'patch'], '/workers/updateForAccoutant/{worker}', 'WorkerController@updateForAccoutant');
 });
 
-Route::get('export', 'VisitController@export')->name('export');
-Route::get('importExportView', 'VisitController@importExportView');
+
+Route::get('importView', 'VisitController@importExportView');
 Route::post('import', 'VisitController@import')->name('import');
+Route::get('export', 'VisitController@export')->name('export');
