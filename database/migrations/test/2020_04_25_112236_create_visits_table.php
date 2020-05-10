@@ -15,10 +15,9 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->bigIncrements('idVisit');
+            $table->DateTime ('datetime');
             $table->integer ('idParalax');
-            $table->string ('lastname');
-            $table->string ('email');
-            $table->string ('gender');
+            $table->string ('action');
             $table->timestamps();
         });
     }
