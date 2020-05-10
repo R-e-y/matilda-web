@@ -1,6 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card">
+                <div class="card-header">Импорт отчета
+
+            <!-- Поле выбора excel файла -->
+                    <div class="card-body">
+                        <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="input-group">
+                            <input type="file" name="file" class="form-control mr-sm-2">
+                              <span class="input-group-btn">
+                            <button class="btn btn-outline-success my-2 my-sm-0">Загрузить</button>
+                            </span>
+                            </div>
+                            <!-- кнопка экспорта -->
+                            <!-- <a class="btn btn-warning" href="{{ route('export') }}">Export Visit Data</a> -->
+                        </form>
+                    </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<br>
+<br>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-11">
