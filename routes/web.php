@@ -11,7 +11,7 @@
 |
 */
 use App\Worker;
-use App\Action;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 Route::auth();
@@ -20,23 +20,6 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/actions', 'ActionController@index');
-Route::post('/actions/read', function () {
-
-  if (($handle = fopen ( public_path () . '/audittrail.csv', 'r' )) !== FALSE) {
-  while ( ($data = fgetcsv ( $handle, 15, ',' )) !== FALSE ) {
-    $action= new Action ();
-    $action->date = $data [1];
-    $action->idParalax = $data [3];
-    $action->action = $data [4];
-    $action->save();var_dump(action);die;
-  }
-
-  fclose ( $handle );
-  }
-
-	return redirect('/actions');
-} );
 // Route::get('/workers', 'WorkerController@index')->name('workers');
 // Route::get('/workersForAccountant', 'WorkerController@indexForAccountant')->name('workers');
 
@@ -65,8 +48,7 @@ Route::post('/actions/read', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
+Route::get('/visits', 'WorkerController@indexVisit')->name('visits');
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 {
 Route::match(['get', 'post'], '/adminOnlyPage/',  'WorkerController@admin');
@@ -91,3 +73,6 @@ Route::delete('/workers/deleteForAccountant/{worker}', 'WorkerController@destroy
 Route::match(['get', 'post'], '/workers/editForAccountant/{worker}', 'WorkerController@editForAccountant');
 Route::match(['get', 'post', 'patch'], '/workers/updateForAccoutant/{worker}', 'WorkerController@updateForAccoutant');
 });
+Route::get('export','MyController@export')->name('export');
+Route::get('importExportView','MyController@importExportView');
+Route::post('import','MyController@import')->name('import');
