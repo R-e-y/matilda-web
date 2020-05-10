@@ -65,8 +65,7 @@ Route::post('/actions/read', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
+Route::get('/visits', 'WorkerController@indexVisits')->name('visits');
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 {
 Route::match(['get', 'post'], '/adminOnlyPage/',  'WorkerController@admin');

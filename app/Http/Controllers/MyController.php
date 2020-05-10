@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Visit;
 use Illuminate\Http\Request;
 use App\Exports\VisitsExport;
 use App\Imports\VisitsImport;
