@@ -13,7 +13,7 @@
 use App\Worker;
 use App\Action;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\RedirectResponse;
 Route::auth();
 Auth::routes();
 
@@ -29,13 +29,13 @@ Route::post('/actions/read', function () {
     $action->date = $data [1];
     $action->idParalax = $data [3];
     $action->action = $data [4];
-    $action->save ();
+    $action->save();var_dump(action);die;
   }
-  var_dump(action); die;
+
   fclose ( $handle );
   }
 
-	return view ( 'actions.list',['actions' => $action::all]);
+	return redirect('/actions');
 } );
 // Route::get('/workers', 'WorkerController@index')->name('workers');
 // Route::get('/workersForAccountant', 'WorkerController@indexForAccountant')->name('workers');
@@ -65,8 +65,7 @@ Route::post('/actions/read', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
+Route::get('/visits', 'WorkerController@indexVisits')->name('visits');
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 {
 Route::match(['get', 'post'], '/adminOnlyPage/',  'WorkerController@admin');

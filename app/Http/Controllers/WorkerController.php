@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Worker;
 use App\Post;
 use App\Office;
+use App\Visit;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -48,7 +49,13 @@ class WorkerController extends Controller
 
         return view('workers.list', ['workers' => $workers]);
     }
+    public function indexVisits()
+    {
+        $visits = Visit::select('*')
+        ->get();
 
+        return view('workers.visit', ['visits' => $visits]);
+    }
 
  public function indexForAccountant()
     {
