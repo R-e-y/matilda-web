@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">Импорт отчета
 
-            <!-- Поле выбора файла -->
+            <!-- Поле выбора excel файла -->
                     <div class="card-body">
                         <form action="<?php echo e(route('import')); ?>" method="POST" enctype="multipart/form-data">
                             <?php echo csrf_field(); ?>
