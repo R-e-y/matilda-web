@@ -1,4 +1,33 @@
 <?php $__env->startSection('content'); ?>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card">
+                <div class="card-header">Импорт отчета
+
+            <!-- Поле выбора excel файла -->
+                    <div class="card-body">
+                        <form action="<?php echo e(route('import')); ?>" method="POST" enctype="multipart/form-data">
+                            <?php echo csrf_field(); ?>
+                            <div class="input-group">
+                            <input type="file" name="file" class="form-control mr-sm-2">
+                              <span class="input-group-btn">
+                            <button class="btn btn-outline-success my-2 my-sm-0">Загрузить</button>
+                            </span>
+                            </div>
+                            <!-- кнопка экспорта -->
+                            <!-- <a class="btn btn-warning" href="<?php echo e(route('export')); ?>">Export Visit Data</a> -->
+                        </form>
+                    </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<br>
+<br>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-11">
@@ -17,10 +46,18 @@
                     <div class="panel-body">
 
                 <!-- Поле поиска -->
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="поиск">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+                <form action="/searchForAccountant" method="POST" role="search">
+                  <?php echo e(csrf_field()); ?>
+
+                  <div class="input-group">
+                      <input type="text" class="form-control mr-sm-2" name="q"
+                          placeholder="Поиск сотрудника">
+                        <span class="input-group-btn">
+                        <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Найти</button>
+                        </span>
+                  </div>
                 </form>
+
 
                       <table class="table table-striped task-table">
 
@@ -77,8 +114,10 @@
                     <?php else: ?>
                         No Records
                     <?php endif; ?>
+                    <br>
+                    <br>
 
-                    <button class="btn btn-primary" type="button" onclick="window.location='<?php echo e(url("workers/add")); ?>'">
+                    <button class="btn btn-primary" type="button" onclick="window.location='<?php echo e(url("workers/addForAccountant")); ?>'">
                       <i class="fa fa-plus fa-fw"></i> Добавить нового сотрудника
                     </button>
                 </div>
@@ -92,4 +131,5 @@
         return confirm("Вы уверены?");
     });
 </script>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\UserPC\OSPanel\domains\matilda\resources\views/workers/listForAccountant.blade.php ENDPATH**/ ?>

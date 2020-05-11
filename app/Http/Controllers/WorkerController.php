@@ -49,7 +49,7 @@ class WorkerController extends Controller
 
         return view('workers.list', ['workers' => $workers]);
     }
-    public function indexVisit()
+    public function indexVisits()
     {
         $visits = Visit::select('*')
         ->get();

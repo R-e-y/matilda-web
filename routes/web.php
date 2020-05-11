@@ -48,7 +48,7 @@ Route::get('/', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/visits', 'WorkerController@indexVisit')->name('visits');
+Route::get('/visits', 'WorkerController@indexVisits')->name('visits');
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 {
 Route::match(['get', 'post'], '/adminOnlyPage/',  'WorkerController@admin');
@@ -73,6 +73,8 @@ Route::delete('/workers/deleteForAccountant/{worker}', 'WorkerController@destroy
 Route::match(['get', 'post'], '/workers/editForAccountant/{worker}', 'WorkerController@editForAccountant');
 Route::match(['get', 'post', 'patch'], '/workers/updateForAccoutant/{worker}', 'WorkerController@updateForAccoutant');
 });
-Route::get('export','MyController@export')->name('export');
-Route::get('importExportView','MyController@importExportView');
-Route::post('import','MyController@import')->name('import');
+
+
+Route::get('importView', 'VisitController@importExportView');
+Route::post('import', 'VisitController@import')->name('import');
+Route::get('export', 'VisitController@export')->name('export');
