@@ -51,18 +51,11 @@
     11 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     12 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     13 => 'Carbon\\Laravel\\ServiceProvider',
-<<<<<<< HEAD
     14 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     15 => 'App\\Providers\\AppServiceProvider',
     16 => 'App\\Providers\\AuthServiceProvider',
     17 => 'App\\Providers\\EventServiceProvider',
     18 => 'App\\Providers\\RouteServiceProvider',
-=======
-    14 => 'App\\Providers\\AppServiceProvider',
-    15 => 'App\\Providers\\AuthServiceProvider',
-    16 => 'App\\Providers\\EventServiceProvider',
-    17 => 'App\\Providers\\RouteServiceProvider',
->>>>>>> master
   ),
   'deferred' =>
   array (
