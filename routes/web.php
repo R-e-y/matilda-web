@@ -11,7 +11,7 @@
 |
 */
 use App\Worker;
-use App\Action;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 Route::auth();
@@ -20,23 +20,6 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/actions', 'ActionController@index');
-Route::post('/actions/read', function () {
-
-  if (($handle = fopen ( public_path () . '/audittrail.csv', 'r' )) !== FALSE) {
-  while ( ($data = fgetcsv ( $handle, 15, ',' )) !== FALSE ) {
-    $action= new Action ();
-    $action->date = $data [1];
-    $action->idParalax = $data [3];
-    $action->action = $data [4];
-    $action->save();var_dump(action);die;
-  }
-
-  fclose ( $handle );
-  }
-
-	return redirect('/actions');
-} );
 // Route::get('/workers', 'WorkerController@index')->name('workers');
 // Route::get('/workersForAccountant', 'WorkerController@indexForAccountant')->name('workers');
 
