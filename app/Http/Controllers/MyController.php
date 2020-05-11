@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Visit;
+use App\Action;
+use App\Worker;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Input;
 use App\Exports\VisitsExport;
 use App\Imports\VisitsImport;
 use Maatwebsite\Excel\Facades\Excel;

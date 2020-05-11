@@ -43,13 +43,3 @@ class VisitController extends Controller
         return back();
     }
 }
-// public function index()
-// {
-//     $actions = Action::select('*')
-//     ->get();
-//
-//     return view('actions.list', ['actions' => $actions]);
-// }
-//
-//
-// }
