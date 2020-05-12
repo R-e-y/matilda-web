@@ -40,6 +40,6 @@ class VisitController extends Controller
     {
         Excel::import(new VisitsImport,request()->file('file'));
 
-        return back();
+      return redirect('/visits');
     }
 }
